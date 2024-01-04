@@ -616,6 +616,7 @@ Status DBImpl::PauseBackgroundWork() {
     bg_cv_.Wait();
   }
   bg_work_paused_++;
+  ROCKS_LOG_INFO(immutable_db_options_.info_log, "PauseBackgroundWork");
   return Status::OK();
 }
 
@@ -633,6 +634,7 @@ Status DBImpl::ContinueBackgroundWork() {
   if (bg_work_paused_ == 0) {
     MaybeScheduleFlushOrCompaction();
   }
+  ROCKS_LOG_INFO(immutable_db_options_.info_log, "ContinueBackgroundWork");
   return Status::OK();
 }
 
